@@ -6,7 +6,7 @@ const RegisterC = () => {
 
 	const [ UserName, setUserName ] = useState("");
 	const [ PassWord, setPassWord ] = useState("");
-	const [ ConfPass, setCongPass ] = useState("");
+	const [ ConfPass, setConfPass ] = useState("");
 	const [ Email, setEmail ] = useState("");
 	const [ Phone, setPhone ] = useState("");
 
@@ -28,7 +28,7 @@ const RegisterC = () => {
 
 		setUserName("");
 		setPassWord("");
-		setCongPass("");
+		setConfPass("");
 		setEmail("");
 		setPhone("");
 
