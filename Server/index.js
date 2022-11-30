@@ -2,10 +2,17 @@ const express = require('express')
 const bodyParser = require ('body-parser')
 const bcrypt = require("bcrypt")
 const cors = require('cors')
+const mysql = require('mysql2')
 const app = express()
 const dotenv = require('dotenv').config()
 
-
+const db = mysql.createPool({ // createConnection
+    host: '127.0.0.1',
+    user: process.env.DBUSER,
+    password: process.env.DBPASS,
+    database: process.env.DATABASE,
+    port: process.env.DBPORT
+})
 
 function SanitizeData(data) {
     if (data.includes("`") === true ) {
@@ -60,6 +67,16 @@ app.post("/api/LoginSubmit", (req, res) => {
 		console.log(Uname, Pword);
 	}
 
+	const sqlSelect = "SELECT * FROM users WHERE username=?;";
+    db.query(sqlSelect, [Uname], (err, result) => {
+        if(err){
+            throw err;
+        }
+
+        console.log(result);
+
+    });
+
 	res.send({Auth: true, user: Uname});
 
 
@@ -103,15 +120,58 @@ app.post("/api/RegisterUser", (req, res) => {
 	}
 
 
-	bcrypt.hash(Pword, 10).then(function(hash) {
-	    console.log("HashPass: ",hash);
-	})
+	// check if username or email exist in DB
 
+	const sqlSelectUserName = "SELECT * FROM users WHERE username=?;";
+    db.query(sqlSelectUserName, [Uname], (err, result) => {
+        if(err){
+            throw err;
+        }
+        if (result.length < 1) {
+        	return;
+        } else {
+			res.send({Auth:false, message: "Username already exists"});
+			return;
 
+        }
 
-	// if username/email dose NOT exist in DB then, 
-	console.log("registering user...");
-	res.send({Auth: true, user: Uname});
+    });
+
+	const sqlSelectEmail = "SELECT * FROM users WHERE email=?;";
+    db.query(sqlSelectEmail, [Email], (err, result) => {
+        if(err){
+            throw err;
+        }
+        if (result.length < 1) {
+        	return;
+        } else {
+			res.send({Auth:false, message: "Email already hin use"});
+			return;
+
+        }
+
+    });
+
+	// bcrypt.hash(Pword, 10).then(function(hash) {
+	//     console.log("HashPass: ",hash);
+	// 	const sqlInsert = "INSERT INTO users (username, password, email, phone) VALUES (?,?,?,?);";
+	//     db.query(sqlInsert, [Uname, hash, Email, Phone], (err, result) => {
+	//         if(err) throw err
+	//         console.log("Server posted: ", Uname, hash, Email, Phone);
+	//     	console.log("registering user...");
+	// 		res.send({Auth: true, user: Uname});
+
+	//     });
+	//     // profile table
+	// 	// const sqlInsert = "INSERT INTO profile (username, , , ) VALUES (?,?,?,?);";
+	//     // db.query(sqlInsert, [Uname, , , ], (err, result) => {
+	//     //     if(err) throw err
+
+	// 	// 	res.send({Auth: true, user: Uname});
+
+	//     // });
+
+	// });
 
 })
 
