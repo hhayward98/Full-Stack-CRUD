@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 
 
-const RegisterC = () => {
+const RegisterC = (props) => {
 
 	const [ UserName, setUserName ] = useState("");
 	const [ PassWord, setPassWord ] = useState("");
@@ -49,8 +49,9 @@ const RegisterC = () => {
 		axios.post(`${process.env.REACT_APP_HOST}/api/RegisterUser`, { Username: UserName, Password: PassWord, email: Email, phone: Phone }).then((response) => {
 			console.log("Request made to server...");
 			if (response.data.Auth === true) {
-				// props.Test(response.data.Auth);
-				console.log("Yayyy");
+				props.FunProp(response.data.Auth,response.data.user);
+				console.log("Logged in as: ",response.data.user);
+
 			} else if (response.data.Auth === false) {
 				const Msg = response.data.message;
 				setMessage(Msg);

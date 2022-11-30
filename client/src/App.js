@@ -11,6 +11,19 @@ function App() {
   const [ RegisterBTN, setRegisterBTN ] = useState(false);
 
   const [ IsLoggedIn, setIsLoggedIn ] = useState(false);
+  const [ User, setUser ] = useState("");
+
+
+  const ValidateUser = (auth, user) => {
+
+    if (auth === true) {
+      setLoginBTN(false);
+      setRegisterBTN(false);
+      setIsLoggedIn(true);
+      setUser(user);
+    }
+
+  }
 
   const LogUserIn = () => {
     console.log("Loging user in");
@@ -29,12 +42,15 @@ function App() {
     setLoginBTN(false);
     setRegisterBTN(false);
     setIsLoggedIn(false);
+    setUser("");
   }
+
 
   const DevLogin = () => {
     setLoginBTN(false);
     setRegisterBTN(false);
     setIsLoggedIn(true);
+    setUser("Dev");
   }
 
   return (
@@ -47,7 +63,7 @@ function App() {
             </div>
             <br/>
             <br/>
-            <UserDashBord />
+            <UserDashBord UserInfo={User}/>
           </div>
 
           :
@@ -68,8 +84,8 @@ function App() {
                 <button onClick={DevLogin} >DevLogin</button>
               </div>
             </div>
-            {LoginBTN ? <LoginC/> : null }
-            {RegisterBTN ? <RegisterC/> : null }
+            {LoginBTN ? <LoginC FunProp={ValidateUser}/> : null }
+            {RegisterBTN ? <RegisterC FunProp={ValidateUser}/> : null }
           </div>
         }
       </header>

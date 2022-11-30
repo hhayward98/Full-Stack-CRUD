@@ -4,12 +4,13 @@ import UserUPDATE from './UserComp/UserUPDATE.jsx';
 import UserREAD from './UserComp/UserREAD.jsx';
 import UserDELETE from './UserComp/UserDELETE';
 
-const UserDashBord = () => {
+const UserDashBord = (props) => {
 
 	const [ UPDATEBTN, setUPDATEBTN ] = useState(false);
 	const [ READBTN, setREADBTN ] = useState(false);
 	const [ DELETEBTN, setDELETEBTN ] = useState(false);
 
+	const User = props.UserInfo;
 
 	const UpdateUser = () => {
 		setDELETEBTN(false);
@@ -42,7 +43,7 @@ const UserDashBord = () => {
 
 
 		<div id="DashBord">
-			<h1>CRUD</h1>
+			<h1>Hello {User}</h1>
 			<br/>
 	        <div className="row">
 	          <div className="col">
@@ -56,9 +57,9 @@ const UserDashBord = () => {
 	          </div>
 	        </div>
 	        <br/>
-	        {READBTN ? <div id="UserAccount"> <p>Fetch user Info from server and display info with format</p> </div> : null }
-	        {UPDATEBTN ? <div id="UpdateAccount"> <p>fetch user info and make updates to DB </p> </div> : null }
-	        {DeleteUser ? <div id="DeleteAccount"> <p>log user out and delete account from DB </p> </div> : null }
+	        {READBTN ? <div id="UserAccount"> <UserREAD/> </div> : null }
+	        {UPDATEBTN ? <div id="UpdateAccount"> <UserUPDATE/> </div> : null }
+	        {DELETEBTN ? <div id="DeleteAccount"> <UserDELETE/> </div> : null }
 		</div>
 
 	);

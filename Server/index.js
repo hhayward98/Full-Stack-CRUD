@@ -31,6 +31,8 @@ app.use(cors())
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
+
+
 app.get("/api/read", (req, res) => {
 
 	console.log("Running Api read Request....");
@@ -38,6 +40,8 @@ app.get("/api/read", (req, res) => {
 	res.send("Hello from Server");
 
 })
+
+
 
 app.post("/api/LoginSubmit", (req, res) => {
 
@@ -56,7 +60,7 @@ app.post("/api/LoginSubmit", (req, res) => {
 		console.log(Uname, Pword);
 	}
 
-	res.send({Auth: true});
+	res.send({Auth: true, user: Uname});
 
 
 })
@@ -107,7 +111,7 @@ app.post("/api/RegisterUser", (req, res) => {
 
 	// if username/email dose NOT exist in DB then, 
 	console.log("registering user...");
-	res.send({Auth: true});
+	res.send({Auth: true, user: Uname});
 
 })
 
