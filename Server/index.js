@@ -44,7 +44,17 @@ app.post("/api/LoginSubmit", (req, res) => {
 	const Uname = req.body.Username;
 	const Pword = req.body.Password;
 
-	console.log(Uname, Pword);
+	if (SanitizeData(Uname) === false) {
+		res.send({Auth: false, message: "Invalid characters detected in Username"});
+		console.log("Invalid characters detected during user registration");
+		return;
+	} else if (SanitizeData(Pword) === false) {
+		res.send({Auth: false, message: "Invalid characters detected in Password"});
+		console.log("Invalid characters detected during user registration");
+		return;
+	} else {
+		console.log(Uname, Pword);
+	}
 
 	res.send({Auth: true});
 
