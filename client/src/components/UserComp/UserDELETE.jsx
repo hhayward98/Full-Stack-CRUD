@@ -6,6 +6,8 @@ import axios from 'axios';
 
 const UserDELETE = () => {
 
+	// require 2FA for user Deletion 
+
 	return (
 
 		<div id="UserDELETE">

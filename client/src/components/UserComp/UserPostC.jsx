@@ -8,6 +8,10 @@ import axios from 'axios';
 
 const UserPostC = () => {
 
+	// dedicate DB table for users to add/update/read/delete from
+	// DB table includes user id for tracking and authentication.
+	// User ID has to equal Message Auth ID to make edits to message 
+
 	return (
 
 		<div id="MakePost">
