@@ -12,20 +12,20 @@ const RegisterC = () => {
 
 	const [ Message, setMessage ] = useState("");
 
-	
-	const [ MatchErr, setMatchErr] = useState(true);
-	const [ Match, setMatch ] = useState("");
+
+	const [ MatchErr, setMatchErr] = useState("");
+	const [ Match, setMatch ] = useState(true);
 
 	useEffect(() => {
-		if (PassWord != ConfPass) {
-			setMatch("Passwords do not Match!");
-			setMatchErr(false);
+		if (PassWord !== ConfPass) {
+			setMatchErr("Passwords do not Match!");
+			setMatch(false);
 		} else if (PassWord === ConfPass) {
-			setMatchErr(true);
-			setMatch("");
+			setMatch(true);
+			setMatchErr("");
 		}
 
-	});
+	},[PassWord, ConfPass]);
 
 
 	const OnSubmit = () => {
@@ -51,7 +51,11 @@ const RegisterC = () => {
 			if (response.data.Auth === true) {
 				// props.Test(response.data.Auth);
 				console.log("Yayyy");
-			};
+			} else if (response.data.Auth === false) {
+				const Msg = response.data.message;
+				setMessage(Msg);
+				return;
+			}
 		});
 
 
@@ -81,7 +85,7 @@ const RegisterC = () => {
 			<h3>Phone (optional) </h3>
 			<input type="text" name="Phone" value={Phone} onChange={(e) => setPhone(e.target.value)} /><br />
 			<br />
-			<h4 className="text-danger">{Match}</h4>
+			<h4 className="text-danger">{MatchErr}</h4>
 			<br/>
 			<h3>Password</h3>
 			<input type="password" name="Password" value={PassWord} onChange={(e) => setPassWord(e.target.value)} /><br />
@@ -89,7 +93,7 @@ const RegisterC = () => {
 			<h3>Password conformation</h3>
 			<input type="password" name="PasswordC" value={ConfPass} onChange={(e) => setConfPass(e.target.value)} /><br />
 			<br/>
-			<button disabled={!MatchErr} onClick={OnSubmit}>Submit</button>
+			<button disabled={!Match} onClick={OnSubmit}>Submit</button>
 		</div>
 
 	);
