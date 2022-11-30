@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 
 
@@ -10,9 +10,39 @@ const RegisterC = () => {
 	const [ Email, setEmail ] = useState("");
 	const [ Phone, setPhone ] = useState("");
 
+	const [ Message, setMessage ] = useState("");
+
+	
+	const [ MatchErr, setMatchErr] = useState(true);
+	const [ Match, setMatch ] = useState("");
+
+	useEffect(() => {
+		if (PassWord != ConfPass) {
+			setMatch("Passwords do not Match!");
+			setMatchErr(false);
+		} else if (PassWord === ConfPass) {
+			setMatchErr(true);
+			setMatch("");
+		}
+
+	});
+
+
 	const OnSubmit = () => {
 
+		if (UserName.length < 1) {
+			setMessage("Username cant be empty");
+			return;
+		} else if (Email.length < 1) {
+			setMessage("Email cant be empty");
+			return;
+		} else if (PassWord < 1) {
+			setMessage("Password Cant be empty");
+			return;
+		}
+
 		// middle ware here
+
 
 
 
@@ -31,14 +61,16 @@ const RegisterC = () => {
 		setConfPass("");
 		setEmail("");
 		setPhone("");
-
+		setMessage("");
 
 	}
 
 	return (
 
 		<div id="RegisterC">
-			<h1>Register Stuff</h1>
+			<h1>Register User</h1>
+			<br/>
+			<h3 className="text-danger">{Message}</h3>
 			<br/>
 			<h3>UserName </h3>
 			<input type="username" name="UserName" value={UserName} onChange={(e) => setUserName(e.target.value)} /><br />
@@ -49,13 +81,15 @@ const RegisterC = () => {
 			<h3>Phone (optional) </h3>
 			<input type="text" name="Phone" value={Phone} onChange={(e) => setPhone(e.target.value)} /><br />
 			<br />
+			<h4 className="text-danger">{Match}</h4>
+			<br/>
 			<h3>Password</h3>
 			<input type="password" name="Password" value={PassWord} onChange={(e) => setPassWord(e.target.value)} /><br />
 			<br/>
 			<h3>Password conformation</h3>
 			<input type="password" name="PasswordC" value={ConfPass} onChange={(e) => setConfPass(e.target.value)} /><br />
 			<br/>
-			<button onClick={OnSubmit}>Submit</button>
+			<button disabled={!MatchErr} onClick={OnSubmit}>Submit</button>
 		</div>
 
 	);
