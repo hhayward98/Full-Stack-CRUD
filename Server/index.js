@@ -64,7 +64,7 @@ app.post("/api/LoginSubmit", (req, res) => {
 		console.log("Invalid characters detected during user registration");
 		return;
 	} else {
-		console.log(Uname, Pword);
+		console.log("running....");
 	}
 
 	const sqlSelect = "SELECT * FROM users WHERE username=?;";
@@ -72,12 +72,23 @@ app.post("/api/LoginSubmit", (req, res) => {
         if(err){
             throw err;
         }
+        if (result.length > 0) {
+	        bcrypt.compare(Pword, result[0].password, function(err, result) {
+	            if (result) {
+	            	console.log("Match Found, bcrypt worked!");
+	            	res.send({Auth: true, user: Uname});
 
-        console.log(result);
+	            } else {
+	            	console.log("Error, Invalid Login Attempt!");
+	                res.send({Auth: false, message: "Error, Invalid Login Attempt!" });
+	           	}
+	        });
+        } else {
+            console.log("Error, Invalid Login Attempt!");
+            res.send({Auth: false, message: "Error, Invalid Login Attempt!" });
+        }
 
     });
-
-	res.send({Auth: true, user: Uname});
 
 
 })
@@ -113,10 +124,7 @@ app.post("/api/RegisterUser", (req, res) => {
 		console.log("Invalid characters detected during user registration");
 		return;
 	} else {
-		console.log("UserName: ", Uname);
-		console.log("Email: ",Email);
-		console.log("Phone Number: ", Phone);
-		console.log("Pword :",Pword);
+		console.log("Running....");
 	}
 
 
