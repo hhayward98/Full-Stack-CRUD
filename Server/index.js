@@ -122,20 +122,7 @@ app.post("/api/RegisterUser", (req, res) => {
 
 	// check if username or email exist in DB
 
-	const sqlSelectUserName = "SELECT * FROM users WHERE username=?;";
-    db.query(sqlSelectUserName, [Uname], (err, result) => {
-        if(err){
-            throw err;
-        }
-        if (result.length < 1) {
-        	return;
-        } else {
-			res.send({Auth:false, message: "Username already exists"});
-			return;
 
-        }
-
-    });
 
 	const sqlSelectEmail = "SELECT * FROM users WHERE email=?;";
     db.query(sqlSelectEmail, [Email], (err, result) => {
@@ -143,35 +130,47 @@ app.post("/api/RegisterUser", (req, res) => {
             throw err;
         }
         if (result.length < 1) {
+			const sqlSelectUserName = "SELECT * FROM users WHERE username=?;";
+		    db.query(sqlSelectUserName, [Uname], (err, result) => {
+		        if(err){
+		            throw err;
+		        }
+		        if (result.length < 1) {
+					bcrypt.hash(Pword, 10).then(function(hash) {
+					    console.log("HashPass: ",hash);
+						const sqlInsert = "INSERT INTO users (username, password, email, phone) VALUES (?,?,?,?);";
+					    db.query(sqlInsert, [Uname, hash, Email, Phone], (err, result) => {
+					        if(err) throw err
+					    	console.log("registering user...");
+
+					    });
+					    // profile table
+						const sqlInsert2 = "INSERT INTO profile (username, Birthday, Motto, AboutMe) VALUES (?,?,?,?);";
+					    db.query(sqlInsert2, [Uname, "N/A", "N/A","N/A" ], (err, result) => {
+					        if(err) throw err
+
+					        console.log("Profile Set");
+
+					    });
+					    res.send({Auth: true, user: Uname});
+					});
+					
+		        	return;
+		        } else {
+					res.send({Auth:false, message: "Username already exists"});
+					return;
+
+		        }
+
+		    });
         	return;
         } else {
-			res.send({Auth:false, message: "Email already hin use"});
+			res.send({Auth:false, message: "Email already in use"});
 			return;
-
         }
 
     });
 
-	// bcrypt.hash(Pword, 10).then(function(hash) {
-	//     console.log("HashPass: ",hash);
-	// 	const sqlInsert = "INSERT INTO users (username, password, email, phone) VALUES (?,?,?,?);";
-	//     db.query(sqlInsert, [Uname, hash, Email, Phone], (err, result) => {
-	//         if(err) throw err
-	//         console.log("Server posted: ", Uname, hash, Email, Phone);
-	//     	console.log("registering user...");
-	// 		res.send({Auth: true, user: Uname});
-
-	//     });
-	//     // profile table
-	// 	// const sqlInsert = "INSERT INTO profile (username, , , ) VALUES (?,?,?,?);";
-	//     // db.query(sqlInsert, [Uname, , , ], (err, result) => {
-	//     //     if(err) throw err
-
-	// 	// 	res.send({Auth: true, user: Uname});
-
-	//     // });
-
-	// });
 
 })
 
