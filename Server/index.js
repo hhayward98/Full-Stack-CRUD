@@ -163,7 +163,7 @@ app.post("/api/RegisterUser", (req, res) => {
 					    res.send({Auth: true, user: Uname});
 					});
 					
-		        	return;
+		        	
 		        } else {
 					res.send({Auth:false, message: "Username already exists"});
 					return;
@@ -171,7 +171,7 @@ app.post("/api/RegisterUser", (req, res) => {
 		        }
 
 		    });
-        	return;
+        	
         } else {
 			res.send({Auth:false, message: "Email already in use"});
 			return;
@@ -181,6 +181,22 @@ app.post("/api/RegisterUser", (req, res) => {
 
 
 })
+
+// Read User Profile
+// app.post()
+
+// update profile
+// app.post()
+
+// User make Post
+// app.post()
+
+// User Update Post
+// app.post()
+
+// User Delete Post
+// app.post()
+
 
 
 
