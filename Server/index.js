@@ -183,7 +183,45 @@ app.post("/api/RegisterUser", (req, res) => {
 })
 
 // Read User Profile
-// app.post()
+app.post("/api/ReadUserProfile", (req, res) => {
+
+	// validate session for profile
+	const Uname = req.body.username;
+	console.log("Fetching Profile for User: ", req.body.username);
+
+	if (SanitizeData(Uname) === false) {
+		res.send({Auth: false, message:"Invalid characters detected"})
+		return;
+	} else {
+
+		const sqlSelectUserName = "SELECT * FROM profile WHERE username=?;";
+	    db.query(sqlSelectUserName, [Uname], (err, result) => {
+	        if(err){
+	            throw err;
+	        }
+
+
+	        if (result.length < 1) {
+	        	console.log("Empty");
+	        } else {
+		        const Uname = result[0].username;
+		        const Birthday = result[0].Birthday;
+		        const Motto = result[0].Motto;
+		        const AboutMe = result[0].AboutMe;
+
+
+		        res.send({username:Uname, bday:Birthday, motto:Motto, aboutme:AboutMe});
+
+	        	console.log("Sent Profile Info");
+
+	        }
+
+
+	    });
+	}
+
+
+})
 
 // update profile
 // app.post()
