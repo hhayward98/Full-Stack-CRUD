@@ -19,51 +19,83 @@ const UserUPDATE = (props) => {
 	const Motto = props.UserPro.motto;
 	const AbotMe = props.UserPro.aboutme;
 
+	const [ NewName, setNewName ] = useState("");
+	const [ NewBirthDate, setNewBirthDate ] = useState("");
+	const [ NewMotto, setNewMotto ] = useState("");
+	const [ NewAboutMe, setNewAboutMe ] = useState("");
 
-	useEffect(() => {
+	const [ Message, setMessage ] = useState("");
 
 
-		console.log(Uname);
 
-	});
+	const BdaySubmit = () => {
+
+		axios.post(`${process.env.REACT_APP_HOST}/api/UpdateUser/Bday`, { username:Uname, nbday: NewBirthDate }).then((response) => {
+
+			setMessage(response.message);
+
+		});
+	}
+
+
+	const MottoSubmit = () => {
+
+		axios.post(`${process.env.REACT_APP_HOST}/api/UpdateUser/Motto`, { username:Uname, nmotto: NewMotto }).then((response) => {
+
+			setMessage(response.message);
+
+		});
+	}
+
+	const AboutMeSubmit = () => {
+
+		axios.post(`${process.env.REACT_APP_HOST}/api/UpdateUser/AboutMe`, { username:Uname, naboutme: NewAboutMe }).then((response) => {
+
+			setMessage(response.message);
+
+		});
+	}
 
 	return (
 
-		<div id="UserREAD">
-			<h3>{BirthDay}</h3>
+		<div id="UserUPDATE">
+			<h1>{Message}</h1>
+			<br/>
+			<br/>
+
+			<h3>BirthDay: {BirthDay}</h3>
+			<input type="text" name="Bday" onChange={(e) => setNewBirthDate(e.target.value)}/>
+			<br/>
+			<h3>Update BirthDay</h3>
+			<button onClick={BdaySubmit}>Submit</button>
 			<br/>
 			<br/>
 			<div id="motto">
-				<p>Motto</p>
+				<h3>My Motto</h3>
 				<br/>
-				<textarea id="w3review" name="w3review" rows="4" cols="40">
-				{Motto}
-				</textarea>
+				<p>{Motto}</p>
 				<br/>
 				<br/>
-				<input type="text" name="Motto" value="Update info"/>
+				<textarea id="NewMotto" name="NewMotto" rows="4" cols="40" onChange={(e) => setNewMotto(e.target.value)} />
+
 				<br/>
+				<h3> Update Motto </h3>
+				<button onClick={MottoSubmit}>Submit</button>
 				<br/>
-				<button>Submit</button>
-				<br />
-				<br />
 			</div>
 			<br/>
 			<br />
 			<div id="aboutme">
-				<p>All About Me</p>
+				<h3>All About Me</h3>
 				<br/>
-				<textarea id="w3review" name="w3review" rows="4" cols="40">
-				{AbotMe}
-				</textarea>
+				<p>{AbotMe}</p>
 				<br/>
 				<br/>
-				<input type="text" name="AboutMe" value="Update info"/>
+				<textarea id="NewAboutMe" name="NewAboutMe" rows="4" cols="40" onChange={(e) => setNewAboutMe(e.target.value)} />
 				<br/>
+				<h3> Update AboutMe </h3>
+				<button onClick={AboutMeSubmit}>Submit</button>
 				<br/>
-				<button>Submit</button>
-				<br />
-				<br />
 
 			</div>
 			<br/>

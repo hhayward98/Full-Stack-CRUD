@@ -31,26 +31,22 @@ const UserREAD = (props) => {
 	return (
 
 		<div id="UserREAD">
-			<h3>{BirthDay}</h3>
+			<h3>BirthDay: {BirthDay}</h3>
 			<br/>
 			<br/>
 			<div id="motto">
-				<p>My Motto</p>
+				<h3>My Motto</h3>
 				<br/>
-				<textarea id="w3review" name="w3review" rows="4" cols="40">
-				{Motto}
-				</textarea>
+				<p>{Motto}</p>
 				<br/>
 				<br/>
 			</div>
 			<br/>
 			<br />
 			<div id="aboutme">
-				<p>All About Me</p>
+				<h3>All About Me</h3>
 				<br/>
-				<textarea id="w3review" name="w3review" rows="4" cols="40">
-				{AbotMe}
-				</textarea>
+				<p>{AbotMe}</p>
 				<br/>
 				<br/>
 

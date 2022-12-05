@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import UserUPDATE from './UserComp/UserUPDATE.jsx';
 import UserREAD from './UserComp/UserREAD.jsx';
@@ -10,9 +10,11 @@ const UserDashBord = (props) => {
 	const [ READBTN, setREADBTN ] = useState(false);
 	const [ DELETEBTN, setDELETEBTN ] = useState(false);
 
+	const [ HasProfile, setHasProfile] = useState(false);
 	const [ Profile, setProfile ] = useState({});
 
 	const User = props.UserInfo;
+
 
 	const UpdateUser = () => {
 		setDELETEBTN(false);
@@ -21,23 +23,24 @@ const UserDashBord = (props) => {
 	}
 
 	const ReadUser = () => {
-
-		axios.post(`${process.env.REACT_APP_HOST}/api/ReadUserProfile`, {username:User}).then((response) => {
-
-			setProfile(response.data);
-
-		});
 		setDELETEBTN(false);
 		setREADBTN(true);
 		setUPDATEBTN(false);
-
-		console.log("Profile: ",Profile);
 	}
 
 	const DeleteUser = () => {
 		setDELETEBTN(true);
 		setREADBTN(false);
 		setUPDATEBTN(false);
+
+	}
+
+	const FetchUser = () => {
+		axios.post(`${process.env.REACT_APP_HOST}/api/ReadUserProfile`, {username:User}).then((response) => {
+
+			setProfile(response.data);
+			setHasProfile(true);
+		});
 
 	}
 
@@ -53,17 +56,25 @@ const UserDashBord = (props) => {
 
 
 		<div id="DashBord">
-	        <div className="row">
-	          <div className="col">
-	            <button onClick={UpdateUser}>UPDATE</button>
-	          </div>
-	          <div className="col">
-	            <button onClick={ReadUser} >READ</button>
-	          </div>
-	          <div className="col">
-	            <button onClick={DeleteUser} >DELETE</button>
-	          </div>
-	        </div>
+
+			{HasProfile ? 
+		        <div className="row">
+		          	<div className="col">
+		            	<button onClick={UpdateUser}>UPDATE</button>
+		          	</div>
+		          	<div className="col">
+		            	<button onClick={ReadUser} >READ</button>
+		          	</div>
+		          	<div className="col">
+		            	<button onClick={DeleteUser} >DELETE</button>
+		          	</div>
+		        </div>
+				
+				:
+				<div> 
+					<button onClick={FetchUser}>View Profile</button>
+				</div>
+			}
 	        <br />
 	        <br/>
 			<h1>Hello {User}</h1>

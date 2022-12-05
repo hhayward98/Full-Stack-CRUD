@@ -23,8 +23,6 @@ function SanitizeData(data) {
         return false;
     } else if (data.includes(";") === true) {
         return false;
-    } else if (data.includes("'") === true) {
-        return false;
     } else {
         return true;
     }
@@ -223,9 +221,92 @@ app.post("/api/ReadUserProfile", (req, res) => {
 
 })
 
-// update profile
-// app.post()
 
+
+// update profile
+app.post("/api/UpdateUser/Bday", (req, res) => {
+	const Uname = req.body.username;
+	console.log("Updating User ",Uname);
+	
+	const Nbday = req.body.nbday;
+	
+
+	if (SanitizeData(Nbday) === false) {
+		res.send({message: "Invalid characters detected"});
+		console.log("Invalid characters detected by ", Uname);
+		return;
+	} else {
+		console.log("Updating User profile.....");
+	}
+
+
+    const sqlUpdate = "UPDATE profile SET Birthday = ? WHERE  username = ?";
+    db.query(sqlUpdate, [Nbday, Uname], (err, result)=>{
+        if(err)  throw err;
+        console.log("Server changed: ", Nbday, "to", Uname)
+        
+        res.send({message: "Profile Updated"});
+        return;
+    });
+
+
+
+})
+
+
+app.post("/api/UpdateUser/Motto", (req, res) => {
+	const Uname = req.body.username;
+	console.log("Updating User ",Uname);
+	const Nmotto = req.body.nmotto;
+
+	if (SanitizeData(Nmotto) === false) {
+		res.send({message: "Invalid characters detected"});
+		console.log("Invalid characters detected by ", Uname);
+		return;
+	} else {
+
+		console.log("Updating User profile.....");
+	}
+
+
+    const sqlUpdate = "UPDATE profile SET Motto = ? WHERE  username = ?";
+    db.query(sqlUpdate, [Nmotto, Uname], (err, result)=>{
+        if(err)  throw err;
+        console.log("Server changed: ", Nmotto, "to", Uname)
+        
+        res.send({message: "Profile Updated"});
+        return;
+    });
+
+
+});
+
+
+app.post("/api/UpdateUser/AboutMe", (req, res) => {
+	const Uname = req.body.username;
+	console.log("Updating User ",Uname);
+	const Naboutme = req.body.naboutme;
+
+
+	if (SanitizeData(Naboutme) === false) {
+		res.send({message: "Invalid characters detected"});
+		console.log("Invalid characters detected by ", Uname);
+		return;
+	} else {
+		console.log("Updating User profile.....");
+		
+	}
+
+    const sqlUpdate = "UPDATE profile SET AboutMe = ? WHERE  username = ?";
+    db.query(sqlUpdate, [Naboutme, Uname], (err, result)=>{
+        if(err)  throw err;
+        console.log("Server changed: ", Naboutme, "to", Uname)
+        res.send({message: "Profile Updated"});
+        return;
+    });
+
+
+});
 // User make Post
 // app.post()
 

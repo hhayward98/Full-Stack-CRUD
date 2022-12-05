@@ -103,3 +103,18 @@
   border: 2px solid black;
 }
 
+#UserUPDATE button{
+  font-size: 18px;
+}
+
+#UserUPDATE textarea{
+  background-color: #252525;
+  color: limegreen;
+  padding: 5px 5px 5px 5px;
+}
+
+#UserUPDATE input{
+  background-color: #252525;
+  color: limegreen;
+  padding: 5px 5px 5px 5px;
+}
