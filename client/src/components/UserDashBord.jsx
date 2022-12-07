@@ -17,12 +17,23 @@ const UserDashBord = (props) => {
 
 
 	const UpdateUser = () => {
+		axios.post(`${process.env.REACT_APP_HOST}/api/ReadUserProfile`, {username:User}).then((response) => {
+
+			setProfile(response.data);
+			setHasProfile(true);
+		});
 		setDELETEBTN(false);
 		setREADBTN(false);
 		setUPDATEBTN(true);
 	}
 
 	const ReadUser = () => {
+		axios.post(`${process.env.REACT_APP_HOST}/api/ReadUserProfile`, {username:User}).then((response) => {
+
+			setProfile(response.data);
+			setHasProfile(true);
+		});
+
 		setDELETEBTN(false);
 		setREADBTN(true);
 		setUPDATEBTN(false);
@@ -41,7 +52,6 @@ const UserDashBord = (props) => {
 			setProfile(response.data);
 			setHasProfile(true);
 		});
-
 	}
 
 	// add explore page for users to view post or other profiles.

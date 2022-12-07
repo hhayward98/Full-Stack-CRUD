@@ -26,15 +26,44 @@ const UserUPDATE = (props) => {
 
 	const [ Message, setMessage ] = useState("");
 
+	const [ Disable, setDisable] = useState(false);
+	const [ DisMotto, setDisMotto ] = useState(false);
+	const [ DisAboutMe, setDisAboutMe ] = useState(false);
+
+	useEffect(() => {
+
+		if (NewBirthDate.length < 1) {
+			setDisable(false);
+		} else {
+			setDisable(true);
+		}
+		
+		if (NewAboutMe.length < 1) {
+			setDisAboutMe(false);
+		} else {
+			setDisAboutMe(true);
+		}
+
+		if (NewMotto.length < 1) {
+			setDisMotto(false);
+		} else {
+			setDisMotto(true);
+		}
+
+
+	},[NewBirthDate, NewAboutMe, NewMotto]);
 
 
 	const BdaySubmit = () => {
+
 
 		axios.post(`${process.env.REACT_APP_HOST}/api/UpdateUser/Bday`, { username:Uname, nbday: NewBirthDate }).then((response) => {
 
 			setMessage(response.message);
 
 		});
+
+		setNewBirthDate("");
 	}
 
 
@@ -45,6 +74,8 @@ const UserUPDATE = (props) => {
 			setMessage(response.message);
 
 		});
+
+		setNewMotto("");
 	}
 
 	const AboutMeSubmit = () => {
@@ -54,20 +85,21 @@ const UserUPDATE = (props) => {
 			setMessage(response.message);
 
 		});
+		setNewAboutMe("");
 	}
 
 	return (
 
 		<div id="UserUPDATE">
-			<h1>{Message}</h1>
+			<h1 className="text-danger">{Message}</h1>
 			<br/>
 			<br/>
 
 			<h3>BirthDay: {BirthDay}</h3>
-			<input type="text" name="Bday" onChange={(e) => setNewBirthDate(e.target.value)}/>
+			<input type="text" name="Bday" value={NewBirthDate} onChange={(e) => setNewBirthDate(e.target.value)}/>
 			<br/>
 			<h3>Update BirthDay</h3>
-			<button onClick={BdaySubmit}>Submit</button>
+			<button disabled={!Disable} onClick={BdaySubmit}>Submit</button>
 			<br/>
 			<br/>
 			<div id="motto">
@@ -76,11 +108,11 @@ const UserUPDATE = (props) => {
 				<p>{Motto}</p>
 				<br/>
 				<br/>
-				<textarea id="NewMotto" name="NewMotto" rows="4" cols="40" onChange={(e) => setNewMotto(e.target.value)} />
+				<textarea id="NewMotto" name="NewMotto" value={NewMotto} rows="4" cols="40" onChange={(e) => setNewMotto(e.target.value)} />
 
 				<br/>
 				<h3> Update Motto </h3>
-				<button onClick={MottoSubmit}>Submit</button>
+				<button disabled={!DisMotto} onClick={MottoSubmit}>Submit</button>
 				<br/>
 			</div>
 			<br/>
@@ -91,10 +123,10 @@ const UserUPDATE = (props) => {
 				<p>{AbotMe}</p>
 				<br/>
 				<br/>
-				<textarea id="NewAboutMe" name="NewAboutMe" rows="4" cols="40" onChange={(e) => setNewAboutMe(e.target.value)} />
+				<textarea id="NewAboutMe" name="NewAboutMe" value={NewAboutMe} rows="4" cols="40" onChange={(e) => setNewAboutMe(e.target.value)} />
 				<br/>
 				<h3> Update AboutMe </h3>
-				<button onClick={AboutMeSubmit}>Submit</button>
+				<button disabled={!DisAboutMe} onClick={AboutMeSubmit}>Submit</button>
 				<br/>
 
 			</div>
