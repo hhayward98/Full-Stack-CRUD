@@ -59,7 +59,7 @@ const UserUPDATE = (props) => {
 
 		axios.post(`${process.env.REACT_APP_HOST}/api/UpdateUser/Bday`, { username:Uname, nbday: NewBirthDate }).then((response) => {
 
-			setMessage(response.message);
+			setMessage(response.data.message);
 
 		});
 
@@ -71,7 +71,7 @@ const UserUPDATE = (props) => {
 
 		axios.post(`${process.env.REACT_APP_HOST}/api/UpdateUser/Motto`, { username:Uname, nmotto: NewMotto }).then((response) => {
 
-			setMessage(response.message);
+			setMessage(response.data.message);
 
 		});
 
@@ -82,7 +82,7 @@ const UserUPDATE = (props) => {
 
 		axios.post(`${process.env.REACT_APP_HOST}/api/UpdateUser/AboutMe`, { username:Uname, naboutme: NewAboutMe }).then((response) => {
 
-			setMessage(response.message);
+			setMessage(response.data.message);
 
 		});
 		setNewAboutMe("");

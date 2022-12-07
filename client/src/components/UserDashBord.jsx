@@ -126,8 +126,8 @@ const UserDashBord = (props) => {
 			<br/>
 	        {READBTN ? <div id="UserAccount"> <UserREAD UserPro={Profile}/> </div> : null }
 	        {UPDATEBTN ? <div id="UpdateAccount"> <UserUPDATE UserPro={Profile}/> </div> : null }
-	        {PostBTN ? <div id="MakeAPost"> <UserPostC /> </div> : null}
-	        {MyPostBTN ? <div id="MyPost"> <MyPostC /> </div> : null}
+	        {PostBTN ? <div id="MakeAPost"> <UserPostC UserPro={Profile}/> </div> : null}
+	        {MyPostBTN ? <div id="MyPost"> <MyPostC UserPro={Profile}/> </div> : null}
 	        {DELETEBTN ? <div id="DeleteAccount"> <UserDELETE/> </div> : null }
 
 

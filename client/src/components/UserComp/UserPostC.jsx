@@ -6,11 +6,13 @@ import axios from 'axios';
 // componet is used for posting conetent for all users to see.
 
 
-const UserPostC = () => {
+const UserPostC = (props) => {
 
 	// dedicate DB table for users to add/update/read/delete from
 	// DB table includes user id for tracking and authentication.
 	// User ID has to equal Message Auth ID to make edits to message 
+
+	const Uname = props.UserPro.username;
 
 	const [ PostMsg, setPostMsg ] = useState("");
 
@@ -37,7 +39,12 @@ const UserPostC = () => {
 		console.log("Submit press")
 
 		// send to Server
+		axios.post(`${process.env.REACT_APP_HOST}/api/UserPost`, { username: Uname, postmsg: PostMsg }).then((response) => {
 
+			console.log(response.data.message);
+			setSrvMsg(response.data.message);
+
+		});
 
 		setPostMsg("");
 

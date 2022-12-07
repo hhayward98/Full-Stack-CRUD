@@ -23,13 +23,43 @@ function SanitizeData(data) {
         return false;
     } else if (data.includes(";") === true) {
         return false;
+    } else if (data.includes("'") === true) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+// SQL inject against = to validate if secure
+function SanitizeData2(data) {
+    if (data.includes("`") === true ) {
+        return false;
+    } else if (data.includes("--") === true) {
+        return false;
+    } else if (data.includes("<?") === true) {
+        return false;
+    } else if (data.includes("';") === true) {
+        return false;
     } else {
         return true;
     }
 }
 
 
+function GetDATETIME() {
 
+	const TimeNow = new Date();
+	const day = ("0" + TimeNow.getDate()).slice(-2);
+	const month = ("0" + (TimeNow.getMonth() + 1)).slice(-2);
+	const year = TimeNow.getFullYear();
+	const hours = TimeNow.getHours();
+	const minutes = TimeNow.getMinutes();
+	const seconds = TimeNow.getSeconds();
+
+	const DATETIME = year+ "-"+month+"-"+day+" "+hours+":"+minutes+":"+seconds+".000";
+
+	return DATETIME;
+}
 
 
 app.use(cors())
@@ -231,7 +261,7 @@ app.post("/api/UpdateUser/Bday", (req, res) => {
 	const Nbday = req.body.nbday;
 	
 
-	if (SanitizeData(Nbday) === false) {
+	if (SanitizeData2(Nbday) === false) {
 		res.send({message: "Invalid characters detected"});
 		console.log("Invalid characters detected by ", Uname);
 		return;
@@ -259,7 +289,7 @@ app.post("/api/UpdateUser/Motto", (req, res) => {
 	console.log("Updating User ",Uname);
 	const Nmotto = req.body.nmotto;
 
-	if (SanitizeData(Nmotto) === false) {
+	if (SanitizeData2(Nmotto) === false) {
 		res.send({message: "Invalid characters detected"});
 		console.log("Invalid characters detected by ", Uname);
 		return;
@@ -288,7 +318,7 @@ app.post("/api/UpdateUser/AboutMe", (req, res) => {
 	const Naboutme = req.body.naboutme;
 
 
-	if (SanitizeData(Naboutme) === false) {
+	if (SanitizeData2(Naboutme) === false) {
 		res.send({message: "Invalid characters detected"});
 		console.log("Invalid characters detected by ", Uname);
 		return;
@@ -307,8 +337,52 @@ app.post("/api/UpdateUser/AboutMe", (req, res) => {
 
 
 });
+
+
 // User make Post
-// app.post()
+app.post("/api/UserPost", (req, res) => {
+
+	const Uname = req.body.username;
+	const Pmsg = req.body.postmsg;
+
+
+	if (SanitizeData2(Pmsg) === false) {
+		res.send({message: "Invalid characters detected"});
+		console.log("Invalid characters detected by ", Uname);
+		return;
+	} else {
+		console.log("Making Post for ", Uname);
+		
+	}
+
+	const datetime = GetDATETIME();
+    const SQLPostINS = "INSERT INTO apost (username, postmessage, datetime) VALUES (?,?,?)";
+    db.query(SQLPostINS, [Uname, Pmsg, datetime ], (err, result) => {
+        if(err) throw err
+		res.send({message: "Congrats, you made a Post!"});
+		return;
+
+    });
+
+
+
+
+})
+
+// view Post
+app.post("/api/ReadMyPost", (req, res) => {
+
+	const Uname = req.body.username;
+
+	const SQLREADp = "SELECT * FROM apost WHERE username=?";
+	db.query(SQLREADp, [Uname], (err, result) => {
+		if(err) throw err
+
+		console.log(result);
+		res.send({message:"Success", apost: result});
+	})
+
+})
 
 // User Update Post
 // app.post()
