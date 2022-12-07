@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 
 
@@ -14,13 +14,33 @@ const UserPostC = () => {
 
 	const [ PostMsg, setPostMsg ] = useState("");
 
+	const [ SrvMsg, setSrvMsg ] = useState("");
+	const [ TL, setTL ] = useState("");
+	const [ Dis , setDis ] = useState(true);
+
+	useEffect(() => {
+
+		if (PostMsg.length < 1) {
+			setDis(true);
+		} else if (PostMsg.length > 240) {
+			setDis(true);
+			setTL("Message is too long!");
+		}else {
+			setDis(false);
+			setTL("");
+		}
 
 
-	const [ Dis , setDis ] = useState(false);
-
+	},[PostMsg]);
 
 	const OnSubmit = () => {
 		console.log("Submit press")
+
+		// send to Server
+
+
+		setPostMsg("");
+
 	}
 
 	return (
@@ -29,11 +49,14 @@ const UserPostC = () => {
 
 			<h1>make a Post</h1>
 			<br/>
+			<h4> {SrvMsg} </h4>
+			<br/>
+			<p className="text-danger">{TL}</p>
 			<textarea id="PostMSG" name="PostMSG" value={PostMsg} rows="4" cols="40" onChange={(e) => setPostMsg(e.target.value)} />
 
 			<br/>
-			<h3> Update Motto </h3>
-			<button disabled={Dis} onClick={OnSubmit}>Submit</button>
+			<br/>
+			<button disabled={Dis} onClick={OnSubmit}>Post Message</button>
 			<br/>
 		</div>
 	);
