@@ -2,13 +2,17 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import UserUPDATE from './UserComp/UserUPDATE.jsx';
 import UserREAD from './UserComp/UserREAD.jsx';
-import UserDELETE from './UserComp/UserDELETE';
+import UserDELETE from './UserComp/UserDELETE.jsx';
+import UserPostC from './UserComp/UserPostC.jsx';
+import MyPostC from './UserComp/MyPostC.jsx';
 
 const UserDashBord = (props) => {
 
 	const [ UPDATEBTN, setUPDATEBTN ] = useState(false);
 	const [ READBTN, setREADBTN ] = useState(false);
 	const [ DELETEBTN, setDELETEBTN ] = useState(false);
+	const [ PostBTN, setPostBTN ] = useState(false);
+	const [ MyPostBTN, setMyPostBTN ] = useState(false);
 
 	const [ HasProfile, setHasProfile] = useState(false);
 	const [ Profile, setProfile ] = useState({});
@@ -25,6 +29,8 @@ const UserDashBord = (props) => {
 		setDELETEBTN(false);
 		setREADBTN(false);
 		setUPDATEBTN(true);
+		setPostBTN(false);
+		setMyPostBTN(false);
 	}
 
 	const ReadUser = () => {
@@ -37,12 +43,35 @@ const UserDashBord = (props) => {
 		setDELETEBTN(false);
 		setREADBTN(true);
 		setUPDATEBTN(false);
+		setPostBTN(false);
+		setMyPostBTN(false);
+	}
+
+	const UserPost = () => {
+		
+
+		setDELETEBTN(false);
+		setREADBTN(false);
+		setUPDATEBTN(false);
+		setPostBTN(true);
+		setMyPostBTN(false);
+	}
+
+	const MyPost = () => {
+
+		setDELETEBTN(false);
+		setREADBTN(false);
+		setUPDATEBTN(false);
+		setPostBTN(false);
+		setMyPostBTN(true);
 	}
 
 	const DeleteUser = () => {
 		setDELETEBTN(true);
 		setREADBTN(false);
 		setUPDATEBTN(false);
+		setPostBTN(false);
+		setMyPostBTN(false);
 
 	}
 
@@ -76,6 +105,12 @@ const UserDashBord = (props) => {
 		            	<button onClick={ReadUser} >READ</button>
 		          	</div>
 		          	<div className="col">
+		            	<button onClick={UserPost} >Make Post</button>
+		          	</div>
+		          	<div className="col">
+		            	<button onClick={MyPost} >My Post</button>
+		          	</div>
+		          	<div className="col">
 		            	<button onClick={DeleteUser} >DELETE</button>
 		          	</div>
 		        </div>
@@ -91,7 +126,11 @@ const UserDashBord = (props) => {
 			<br/>
 	        {READBTN ? <div id="UserAccount"> <UserREAD UserPro={Profile}/> </div> : null }
 	        {UPDATEBTN ? <div id="UpdateAccount"> <UserUPDATE UserPro={Profile}/> </div> : null }
+	        {PostBTN ? <div id="MakeAPost"> <UserPostC /> </div> : null}
+	        {MyPostBTN ? <div id="MyPost"> <MyPostC /> </div> : null}
 	        {DELETEBTN ? <div id="DeleteAccount"> <UserDELETE/> </div> : null }
+
+
 		</div>
 
 	);
