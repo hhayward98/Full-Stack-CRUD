@@ -215,6 +215,9 @@ app.post("/api/ReadUserProfile", (req, res) => {
 
 	// validate session for profile
 	const Uname = req.body.username;
+
+	// Sesh check
+
 	console.log("Fetching Profile for User: ", req.body.username);
 
 	if (SanitizeData(Uname) === false) {
@@ -255,11 +258,11 @@ app.post("/api/ReadUserProfile", (req, res) => {
 
 // update profile
 app.post("/api/UpdateUser/Bday", (req, res) => {
-	const Uname = req.body.username;
-	console.log("Updating User ",Uname);
 	
+	const Uname = req.body.username;
 	const Nbday = req.body.nbday;
 	
+	// Sesh check
 
 	if (SanitizeData2(Nbday) === false) {
 		res.send({message: "Invalid characters detected"});
@@ -286,8 +289,8 @@ app.post("/api/UpdateUser/Bday", (req, res) => {
 
 app.post("/api/UpdateUser/Motto", (req, res) => {
 	const Uname = req.body.username;
-	console.log("Updating User ",Uname);
 	const Nmotto = req.body.nmotto;
+	// Sesh check
 
 	if (SanitizeData2(Nmotto) === false) {
 		res.send({message: "Invalid characters detected"});
@@ -313,10 +316,11 @@ app.post("/api/UpdateUser/Motto", (req, res) => {
 
 
 app.post("/api/UpdateUser/AboutMe", (req, res) => {
+	
 	const Uname = req.body.username;
-	console.log("Updating User ",Uname);
 	const Naboutme = req.body.naboutme;
 
+	// Sesh check
 
 	if (SanitizeData2(Naboutme) === false) {
 		res.send({message: "Invalid characters detected"});
@@ -342,9 +346,11 @@ app.post("/api/UpdateUser/AboutMe", (req, res) => {
 // User make Post
 app.post("/api/UserPost", (req, res) => {
 
+
 	const Uname = req.body.username;
 	const Pmsg = req.body.postmsg;
 
+	// Sesh check
 
 	if (SanitizeData2(Pmsg) === false) {
 		res.send({message: "Invalid characters detected"});
@@ -374,6 +380,8 @@ app.post("/api/ReadMyPost", (req, res) => {
 
 	const Uname = req.body.username;
 
+	// Sesh check
+
 	const SQLREADp = "SELECT * FROM apost WHERE username=?";
 	db.query(SQLREADp, [Uname], (err, result) => {
 		if(err) throw err
@@ -387,7 +395,24 @@ app.post("/api/ReadMyPost", (req, res) => {
 // app.post()
 
 // User Delete Post
-// app.post()
+app.post("/api/DeletePost", (req, res) => {
+
+	const Uname = req.body.username;
+	const PostID = req.body.postid;
+	console.log("Request to Delete Post by: ", Uname);
+
+	// Sesh check
+
+	const sqlDeletePost = "DELETE FROM apost WHERE id = ?";
+	db.query(sqlDeletePost, [PostID], (err, result) => {
+		if (err) throw err
+		console.log("Deleted Post ID: ", PostID);
+		res.send({message:"Post deleted"});
+		return;
+	})
+	
+
+})
 
 
 

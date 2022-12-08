@@ -10,17 +10,39 @@ const MyPostC = (props) => {
 
 	const [ Row, setRow ] = useState([]);
 
-
 	const PostArray = [];
 
 
 
-	const Refresh = () => {
+	const [ Dmode, setDmode ] = useState(false);
+	const [ PDid, setPDid ] = useState("");
 
+	const [ Message, setMessage ] = useState("");
+
+
+
+	const DeletePost = (ID) => {
+
+		console.log("Removing post...");
+		
+		const PostID = ID.target.id;
+		
+		axios.post(`${process.env.REACT_APP_HOST}/api/DeletePost`, { username: Uname, postid: PostID }).then((response) => {
+
+			console.log(response.data.message);
+			setMessage(response.data.message);
+
+		});
+
+	}
+
+
+	const Refresh = () => {
+		setMessage("");
 		const PostArray = [];
 		axios.post(`${process.env.REACT_APP_HOST}/api/ReadMyPost`, { username: Uname }).then((response) => {
 			const OBJ = response.data.apost;
-			console.log(OBJ);
+			// console.log(OBJ);
 
 			let TempArray = [];
 
@@ -28,12 +50,7 @@ const MyPostC = (props) => {
 
 				const Data = OBJ[i];
 
-				console.log("OBJ Length: ",OBJ.length);
-				console.log("Current I: ", i);
-				console.log("Next I: ", i+1);
-
-
-				const POST = [Data.username, Data.postmessage];
+				const POST = [Data.id, Data.username, Data.postmessage];
 
 				TempArray.push(POST);
 
@@ -52,7 +69,7 @@ const MyPostC = (props) => {
 			}
 
 			setRow(PostArray);
-			console.log(PostArray);
+			// console.log(PostArray);
 
 		});
 
@@ -67,23 +84,24 @@ const MyPostC = (props) => {
 			<button onClick={Refresh}>Refresh</button>
 			<br/>
 			<br/>
+			<h3 className="text-danger">{Message}</h3>
+			<br/>
+
 			<div id="AllUserPost">
 				{Row.map((item, index) => (
 					<div className="row">
 						{item.map((item2, index2) => (
 							<div className="col-md-4">
-
-									
-								<h3>{item2[0]}</h3>
+								<h3>{item2[1]}</h3>
 								
 								<br/>
 								<div>
-									<p>{item2[1]}</p>
+									<p>{item2[2]}</p>
 								</div>
 								<br/>
 								<br/>
 								<div>
-									<button>X</button>
+									<button  id={item2[0]} diabled={Dmode} onClick={DeletePost}>X</button>
 								</div>
 							</div>
 						))}

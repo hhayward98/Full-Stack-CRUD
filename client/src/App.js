@@ -46,12 +46,7 @@ function App() {
   }
 
 
-  const DevLogin = () => {
-    setLoginBTN(false);
-    setRegisterBTN(false);
-    setIsLoggedIn(true);
-    setUser("Dev");
-  }
+
 
   return (
     <div className="App">
@@ -81,9 +76,6 @@ function App() {
               </div>
               <div className="col">
                 <button onClick={RegisterUser} >Register</button>
-              </div>
-              <div className="col">
-                <button onClick={DevLogin} >DevLogin</button>
               </div>
             </div>
             {LoginBTN ? <LoginC FunProp={ValidateUser}/> : null }
