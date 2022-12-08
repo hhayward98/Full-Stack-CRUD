@@ -24,7 +24,7 @@ const MyPostC = (props) => {
 	const DeletePost = (ID) => {
 
 		console.log("Removing post...");
-		
+
 		const PostID = ID.target.id;
 		
 		axios.post(`${process.env.REACT_APP_HOST}/api/DeletePost`, { username: Uname, postid: PostID }).then((response) => {
@@ -95,12 +95,11 @@ const MyPostC = (props) => {
 								<h3>{item2[1]}</h3>
 								
 								<br/>
-								<div>
+								<div className="Butt">
 									<p>{item2[2]}</p>
 								</div>
-								<br/>
-								<br/>
-								<div>
+
+								<div >
 									<button  id={item2[0]} diabled={Dmode} onClick={DeletePost}>X</button>
 								</div>
 							</div>
