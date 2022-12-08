@@ -127,3 +127,32 @@
   color: limegreen;
   padding: 5px 5px 5px 5px;
 }
+
+#AllUserPost .row {
+  padding: 10px 10px 10px 10px;
+}
+
+#AllUserPost .col-md-4 {
+  height: 200px;
+
+  padding: 10px 10px 10px 10px;
+  border: 2px solid silver;
+
+  background-color: #252525;
+}
+
+#AllUserPost .col-md-4 h3 {
+
+  border: 2px solid black;
+  font-size: 12px;
+
+}
+
+#AllUserPost .col-md-4 p {
+  font-size: 18px;
+  color: limegreen;
+}
+
+#AllUserPost .col-md-4 button {
+  font-size: 10px;
+}

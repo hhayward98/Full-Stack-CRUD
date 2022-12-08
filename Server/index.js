@@ -378,7 +378,6 @@ app.post("/api/ReadMyPost", (req, res) => {
 	db.query(SQLREADp, [Uname], (err, result) => {
 		if(err) throw err
 
-		console.log(result);
 		res.send({message:"Success", apost: result});
 	})
 
