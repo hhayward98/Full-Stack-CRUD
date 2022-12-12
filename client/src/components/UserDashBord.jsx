@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import UserUPDATE from './UserComp/UserUPDATE.jsx';
 import UserREAD from './UserComp/UserREAD.jsx';
-import UserDELETE from './UserComp/UserDELETE.jsx';
+import Explore from './UserComp/Explore.jsx';
 import UserPostC from './UserComp/UserPostC.jsx';
 import MyPostC from './UserComp/MyPostC.jsx';
 
@@ -95,14 +95,16 @@ const UserDashBord = (props) => {
 
 
 		<div id="DashBord">
-
+			<h1>Hello {User}</h1>
+			<br/>
+			<br/>
 			{HasProfile ? 
 		        <div className="row">
 		          	<div className="col">
-		            	<button onClick={UpdateUser}>UPDATE</button>
+		            	<button onClick={UpdateUser}>Update</button>
 		          	</div>
 		          	<div className="col">
-		            	<button onClick={ReadUser} >READ</button>
+		            	<button onClick={ReadUser} >My Profile</button>
 		          	</div>
 		          	<div className="col">
 		            	<button onClick={UserPost} >Make Post</button>
@@ -111,7 +113,7 @@ const UserDashBord = (props) => {
 		            	<button onClick={MyPost} >My Post</button>
 		          	</div>
 		          	<div className="col">
-		            	<button onClick={DeleteUser} >DELETE</button>
+		            	<button onClick={DeleteUser} >Explore</button>
 		          	</div>
 		        </div>
 				
@@ -122,13 +124,11 @@ const UserDashBord = (props) => {
 			}
 	        <br />
 	        <br/>
-			<h1>Hello {User}</h1>
-			<br/>
 	        {READBTN ? <div id="UserAccount"> <UserREAD UserPro={Profile}/> </div> : null }
 	        {UPDATEBTN ? <div id="UpdateAccount"> <UserUPDATE UserPro={Profile}/> </div> : null }
 	        {PostBTN ? <div id="MakeAPost"> <UserPostC UserPro={Profile}/> </div> : null}
 	        {MyPostBTN ? <div id="MyPost"> <MyPostC UserPro={Profile}/> </div> : null}
-	        {DELETEBTN ? <div id="DeleteAccount"> <UserDELETE/> </div> : null }
+	        {DELETEBTN ? <div id="DeleteAccount"> <Explore/> </div> : null }
 
 
 		</div>

@@ -94,15 +94,16 @@ const UserUPDATE = (props) => {
 			<h1 className="text-danger">{Message}</h1>
 			<br/>
 			<br/>
-
-			<h3>BirthDay: {BirthDay}</h3>
-			<input type="text" name="Bday" value={NewBirthDate} onChange={(e) => setNewBirthDate(e.target.value)}/>
+			<div className="birthday">
+				<h3>BirthDay: {BirthDay}</h3>
+				<input type="text" name="Bday" value={NewBirthDate} onChange={(e) => setNewBirthDate(e.target.value)}/>
+				<br/>
+				<h3>Update BirthDay</h3>
+				<button disabled={!Disable} onClick={BdaySubmit}>Submit</button>
+				<br/>
+			</div>
 			<br/>
-			<h3>Update BirthDay</h3>
-			<button disabled={!Disable} onClick={BdaySubmit}>Submit</button>
-			<br/>
-			<br/>
-			<div id="motto">
+			<div className="motto">
 				<h3>My Motto</h3>
 				<br/>
 				<p>{Motto}</p>
@@ -117,7 +118,7 @@ const UserUPDATE = (props) => {
 			</div>
 			<br/>
 			<br />
-			<div id="aboutme">
+			<div className="aboutme">
 				<h3>All About Me</h3>
 				<br/>
 				<p>{AbotMe}</p>

@@ -29,7 +29,7 @@
 }
 
 #DashBord {
-  padding: 30px 0px 20px 0px;
+  padding: 40px 0px 40px 0px;
 }
 
 #DashBord button {
@@ -95,6 +95,10 @@
   font-size: 18px;
 }
 
+#UserREAD p {
+  font-size: 20px;
+}
+
 #UserREAD textarea {
   background-color: #252525;
   color: limegreen;
@@ -107,9 +111,19 @@
   padding: 5px 5px 5px 5px;
 }
 
+#UserUPDATE .birthday {
+  padding: 20px 10px 20px 10px;
+  border: 2px solid silver;
+}
 
-#aboutme {
-  border: 2px solid black;
+#UserUPDATE .motto {
+  padding: 20px 10px 20px 10px;
+  border: 2px solid silver;
+}
+
+#UserUPDATE .aboutme {
+  padding: 20px 10px 20px 10px;
+  border: 2px solid silver;
 }
 
 #UserUPDATE button{

@@ -415,6 +415,22 @@ app.post("/api/DeletePost", (req, res) => {
 })
 
 
+app.post("/api/Explore", (req, res) => {
+
+
+
+	const sqlGetPost = "SELECT * FROM apost";
+	db.query(sqlGetPost, (err, result) => {
+		if (err) throw err
+
+		res.send({message:"Success", apost: result});
+		return;
+	})
+
+
+
+})
+
 
 
 const PORT = process.env.SPORT;

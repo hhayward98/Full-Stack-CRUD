@@ -13,9 +13,8 @@ const MyPostC = (props) => {
 	const PostArray = [];
 
 
-
 	const [ Dmode, setDmode ] = useState(false);
-	const [ PDid, setPDid ] = useState("");
+	// const [ PDid, setPDid ] = useState("");
 
 	const [ Message, setMessage ] = useState("");
 
@@ -55,13 +54,13 @@ const MyPostC = (props) => {
 				TempArray.push(POST);
 
 				
-				if (i+1 == OBJ.length) {
+				if (i+1 === OBJ.length) {
 					PostArray.push(TempArray);
 					TempArray = [];
 				}
 
 
-				if (TempArray.length == 3) {
+				if (TempArray.length === 3) {
 					PostArray.push(TempArray);
 					TempArray = [];
 				}

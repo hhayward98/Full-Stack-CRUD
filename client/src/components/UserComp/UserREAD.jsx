@@ -24,32 +24,29 @@ const UserREAD = (props) => {
 	useEffect(() => {
 
 
-		console.log(Uname);
+		// console.log(Uname);
 
 	});
 
 	return (
 
 		<div id="UserREAD">
-			<h3>BirthDay: {BirthDay}</h3>
+			<h4>BirthDay: {BirthDay}</h4>
 			<br/>
 			<br/>
-			<div id="motto">
-				<h3>My Motto</h3>
-				<br/>
+			<div className="motto">
 				<p>{Motto}</p>
 				<br/>
-				<br/>
+
 			</div>
 			<br/>
 			<br />
-			<div id="aboutme">
+			<div className="aboutme">
 				<h3>All About Me</h3>
 				<br/>
 				<p>{AbotMe}</p>
 				<br/>
 				<br/>
-
 			</div>
 			<br/>
 			<br/>
