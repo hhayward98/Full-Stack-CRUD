@@ -11,7 +11,12 @@ const Explore = () => {
 
 	const [ Row, setRow ] = useState([]);
 
+	const [ ViewProfile, setViewProfile ] = useState(false);
 
+	function ProfileView(name) {
+
+		console.log("Viewing....", name.target.innerHTML);
+	}
 
 	const OnSubmit = () => {
 		console.log("Submit press")
@@ -33,9 +38,6 @@ const Explore = () => {
 				const POST = [post.id, post.username, post.postmessage];
 				TempArray.push(POST);
 			}
-
-
-
 
 			let TempArray2 = [];
 			let i = 0;
@@ -63,33 +65,52 @@ const Explore = () => {
 		});
 
 
+
+
 	}
 
 	return (
 
-		<div id="Explore">
-			<h1>Explore Page</h1>
-			<br/>
-			<button onClick={OnSubmit}>Refresh</button>
-			<br/>
-			<div id="AllUserPost">
-				{Row.map((item, index) => (
-					<div className="row">
-						{item.map((item2, index2) => (
-							<div className="col-md-4">
-								<h3>{item2[1]}</h3>
-								
-								<br/>
-								<div className="Butt">
-									<p>{item2[2]}</p>
-								</div>
+		<div>
+
+
+			{ViewProfile ? 
+				<div>
+					<h1>Test</h1>
+				</div>
+
+
+				:
+
+
+				<div id="Explore">
+					<h1>Explore Page</h1>
+					<br/>
+					<button onClick={OnSubmit}>Refresh</button>
+					<br/>
+					<div id="AllUserPost">
+						{Row.map((item, index) => (
+							<div className="row">
+								{item.map((item2, index2) => (
+									<div className="col-md-4">
+										<h3 onClick={ProfileView}>{item2[1]}</h3>
+										
+										<br/>
+										<div className="Butt">
+											<p>{item2[2]}</p>
+										</div>
+									</div>
+								))}
 							</div>
 						))}
-					</div>
-				))}
 
-			</div>
+					</div>
+				</div>
+
+			}
 		</div>
+
+
 	);
 
 
