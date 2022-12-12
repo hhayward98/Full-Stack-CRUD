@@ -7,6 +7,8 @@ import axios from 'axios';
 const Explore = () => {
 
 
+	// TODO 
+
 	const [ AllPost, setALLPost ] = useState([]);
 
 	const [ Row, setRow ] = useState([]);
@@ -38,6 +40,9 @@ const Explore = () => {
 				const POST = [post.id, post.username, post.postmessage];
 				TempArray.push(POST);
 			}
+
+
+			// TODO: Make sure each Post added is unique and no duplicates
 
 			let TempArray2 = [];
 			let i = 0;
