@@ -142,6 +142,10 @@
   padding: 5px 5px 5px 5px;
 }
 
+#AllUserPost .Butt p {
+  width: auto;
+}
+
 #AllUserPost .row {
   padding: 10px 10px 10px 10px;
 }
@@ -162,10 +166,12 @@
 
 }
 
-#AllUserPost .col-md-4 p {
+#AllUserPost .col-md-4 textarea {
   width: auto;
   height: 150px;
+  background-color: #252525;
   color: limegreen;
+  border: solid #252525;
 }
 
 #AllUserPost .col-md-4 button {

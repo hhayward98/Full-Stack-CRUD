@@ -59,7 +59,7 @@ const UserPostC = (props) => {
 			<h4> {SrvMsg} </h4>
 			<br/>
 			<p className="text-danger">{TL}</p>
-			<textarea id="PostMSG" name="PostMSG" value={PostMsg} rows="4" cols="40" onChange={(e) => setPostMsg(e.target.value)} />
+			<textarea id="PostMSG" name="PostMSG" value={PostMsg} rows="4" cols="30" onChange={(e) => setPostMsg(e.target.value)} />
 
 			<br/>
 			<br/>

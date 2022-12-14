@@ -95,7 +95,7 @@ const MyPostC = (props) => {
 								
 								<br/>
 								<div className="Butt">
-									<p>{item2[2]}</p>
+									<textarea defaultValue={item2[2]}/>
 								</div>
 
 								<div >

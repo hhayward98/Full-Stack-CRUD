@@ -41,18 +41,21 @@ const Explore = () => {
 				TempArray.push(POST);
 			}
 
-
-			// TODO: Make sure each Post added is unique and no duplicates
-
+			let RanArray = [];
 			let TempArray2 = [];
 			let i = 0;
 			while (i < OBJSize) {
 
+
 				const RandNum = Math.floor(Math.random() * (OBJSize - 0) + 0);
 
-				TempArray2.push(TempArray[RandNum]);
+				if (RanArray.includes(RandNum) === false) {
+					TempArray2.push(TempArray[RandNum]);
+					i++;
+				}
 
-				if (i+1 === OBJSize) {
+
+				if (i === OBJSize) {
 					PostArray.push(TempArray2);
 					TempArray2 = [];
 				}
@@ -62,7 +65,7 @@ const Explore = () => {
 					TempArray2 = [];
 				}
 
-				i++;
+				
 			}
 
 			setRow(PostArray);
@@ -102,7 +105,7 @@ const Explore = () => {
 										
 										<br/>
 										<div className="Butt">
-											<p>{item2[2]}</p>
+											<textarea defaultValue={item2[2]}/>
 										</div>
 									</div>
 								))}
